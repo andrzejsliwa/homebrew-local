@@ -28,6 +28,10 @@ class Vice < Formula
                           "--prefix=#{prefix}",
                           "--without-x",
                           "--enable-static-lame",
+                          "--enable-sdlui",
+                          "--enable-sdlsound",
+                          "--enable-ethernet",
+                          "--with-memmap",
                           # VICE can't compile against FFMPEG newer than 0.11:
                           # http://sourceforge.net/tracker/?func=detail&aid=3585471&group_id=223021&atid=1057617
                           "--disable-ffmpeg" ]
