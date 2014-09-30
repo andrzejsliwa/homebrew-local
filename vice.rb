@@ -14,7 +14,7 @@ class Vice < Formula
   depends_on 'libpng'
   depends_on 'giflib' => :optional
   depends_on 'lame' => :optional
-  depends_on 'sdl' if build.with? 'sdl'
+  depends_on 'sdl'
 
   fails_with :llvm do
     build 2335
@@ -42,7 +42,7 @@ class Vice < Formula
     end
     # Upstream forgot to point this to its new location?
     inreplace 'src/arch/sdl/archdep_unix.c', '#include "../unix/macosx/platform_macosx.c"', '#include "../../platform/platform_macosx.c"'
-
+    
     system "./configure", *configure_options
     system "make"
     system "make bindist"
