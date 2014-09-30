@@ -35,23 +35,13 @@ class Vice < Formula
                           # VICE can't compile against FFMPEG newer than 0.11:
                           # http://sourceforge.net/tracker/?func=detail&aid=3585471&group_id=223021&atid=1057617
                           "--disable-ffmpeg" ]
-    if build.with? 'sdl'
-      configure_options << '--enable-sdlui' << '--with-sdlsound'
-      # Upstream source assumes presence of
-      # /Library/Frameworks/SDL.framework/Headers
-      inreplace 'configure' do |configure|
-        configure.gsub! '/Library/Frameworks/SDL.framework/Headers', '/usr/local/include/SDL'
-        configure.gsub! '-framework SDL', '-lSDL'
-      end
-      # Upstream forgot to point this to its new location?
-      inreplace 'src/arch/sdl/archdep_unix.c', '#include "../unix/macosx/platform_macosx.c"', '#include "../../platform/platform_macosx.c"'
-    else
-      configure_options << '--with-cocoa'
-    end
 
-    if build.with? 'memmap'
-      configure_options << ' --with-memmap'
+    inreplace 'configure' do |configure|
+      configure.gsub! '/Library/Frameworks/SDL.framework/Headers', '/usr/local/include/SDL'
+      configure.gsub! '-framework SDL', '-lSDL'
     end
+    # Upstream forgot to point this to its new location?
+    inreplace 'src/arch/sdl/archdep_unix.c', '#include "../unix/macosx/platform_macosx.c"', '#include "../../platform/platform_macosx.c"'
 
     system "./configure", *configure_options
     system "make"
