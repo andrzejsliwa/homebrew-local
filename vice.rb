@@ -44,6 +44,7 @@ class Vice < Formula
     else
       configure_options << '--with-cocoa'
     end
+    configure_options << '--with-ethernet'
 
     if build.with? 'memmap'
       configure_options << ' --with-memmap'
